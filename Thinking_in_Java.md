@@ -34,18 +34,18 @@ Pattern p = Pattern.compile("a*b");//regular expression,create a pattern
 Mathcer m = p.matcher("aaaab");//user string,create a matcher
 boolean b = m.matches();
 ```
-compile()的另一个版本：compile("regex",int flag),flag来自Pattern类中的7个常量（自行查阅）
+compile()的另一个版本：compile("regex",int flag),flag来自Pattern类中的7个常量（自行查阅）  
 一个matcher对象可以用来做三种操作：  
-matches()：判断整个输入字符串是否匹配正则表达式
-lookingAt()：部分匹配，从第一个字符开始匹配，无论匹配成功与否则不再继续匹配
-find(),find(int i)：部分匹配，从i位置（不指定则默认从0开始）开始匹配，找到一个匹配的子串，下一次匹配的位置从上一次位置开始
-**Groups的概念**
-用括号区分不同的组
-类似于A(B(C))D，共有3个组：0组ABCD，1组BC，2组C。
-Matcher对象提供了一系列方法以获取组相关信息：public int groupCount(),public String group(),public String group(int i),public int start(int group),public int end(int group)
-**替换操作**
-replaceFirst()
-replaceAll()
+matches()：判断整个输入字符串是否匹配正则表达式  
+lookingAt()：部分匹配，从第一个字符开始匹配，无论匹配成功与否则不再继续匹配  
+find(),find(int i)：部分匹配，从i位置（不指定则默认从0开始）开始匹配，找到一个匹配的子串，下一次匹配的位置从上一次位置开始  
+**Groups的概念**  
+用括号区分不同的组  
+类似于A(B(C))D，共有3个组：0组ABCD，1组BC，2组C。  
+Matcher对象提供了一系列方法以获取组相关信息：public int groupCount(),public String group(),public String group(int i),public int start(int group),public int end(int group)  
+**替换操作**  
+replaceFirst()  
+replaceAll()  
 appendReplacement(StringBuffer,replacementString),替换，并且把替换后的子串以及其之前到上次匹配子串之后的字符串段添加到StringBuffer中  
 appendTail(StringBuffer)，在appendReplacement()方法后执行，用于将剩余未处理部分存入StringBuffer中。
 reset("string")：将现有的Matcher对象应用于一个新的串上
@@ -68,3 +68,11 @@ while(scanner.hasNext(pattern)){
 要注意的是:*如果pattern里边有界定符，则匹配不可能成功，因为scanner永远是针对下一个输入进行匹配，有界定符的话就匹配不上*
 ### StringTokenizer
 作者举了个例子展示StringTokenizer类，表明现在基本是用Scanner和正则表达式，因为后者可以使用更加复杂的模式来分割一个字符串  
+## Chapter 14 RTTI
+### 14.1 为什么要用RTTI
+简单来说，“多态”是面向对象编程的基本目标，而这是基于RTTI来实现的，而RTTI又是通过Class对象来完成的
+### 14.2 Class对象
+每个类都会有一个Class对象。在编写后并且编译一个新类时，就会产生一个Class底箱。为了生成一个类的这个对象，JVM使用了*类加载器*子系统。  
+这个子系统可以包含一系列类加载器链，但是只有一个*原生类加载器*，它加载可信类，比如Java API类。  
+Java的一个特性就是，所有类都是动态加载到JVM中的。所以Java程序在它刚开始运行时没有都加载，而是各个部分在需要时才会被加载进来。  
+类加载器首先会检查Class对象是否已经加载。如果没有，就去查找.class文件。在加载入内存后，它就会被用来创建这个类的所有对象。  
