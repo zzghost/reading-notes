@@ -76,3 +76,5 @@ while(scanner.hasNext(pattern)){
 这个子系统可以包含一系列类加载器链，但是只有一个*原生类加载器*，它加载可信类，比如Java API类。  
 Java的一个特性就是，所有类都是动态加载到JVM中的。所以Java程序在它刚开始运行时没有都加载，而是各个部分在需要时才会被加载进来。  
 类加载器首先会检查Class对象是否已经加载。如果没有，就去查找.class文件。在加载入内存后，它就会被用来创建这个类的所有对象。  
+Class.forName("classname"):找加载类，找不到则抛出ClassNotFoundException  
+Java还可以使用*类字面常量*来生成对Class对象的引用
