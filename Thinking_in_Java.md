@@ -79,10 +79,20 @@ Java有以下两种方法来获取对Class对象的引用：
 1） Class.forName("classname"):找加载类，如果找不到则抛出ClassNotFoundException的异常。和2）不同的是，这种方法调用后会立刻进行初始化。  
 2） ClassName.class.基本类型也包含.class方法，而他们的包装器类则有.TYPE字段，作者建议使用.class，为了保持一致。   
 .class的准备工作有三个：1） 加载，类加载器会去查找字节码，从字节码中创建Class对象。2） 链接，验证字节码，为静态域分配存储空间，并且若必需的话，将解析这个类创建的对其他类的所有引用。 3）初始化，如果该类具有超类，则对其初始化，执行静态初始化器和初始化块。。。。所以使用.class来创建Class对象的引用时，不会自动初始化该Class对象，而是延迟到了对静态方法或者非常数静态域进行首次引用时才执行。  
-关于此过程，书P319给出了一个详细的例子，比较有用，可以再复习。这个例子说明，对于static final型的编译时常量，所以不需要初始化就可以直接读取，但是只加上static final却不能保证可以直接读取，因为它有可能跟超类有关，这就需要用到上边第3）条，强制初始化，再访问。如果一个static域不为final，则对它访问时，要先进行1）和2）的过程。  
-Class引用也有泛型语法。Class<Integer>,Class<Number>,Class<?>,Class<? extends Number>.为它添加泛型语法主要是为了提供编译期类型检查。
-Class引用还有转型语法。cast(). 
+关于此过程，书P319给出了一个详细的例子，对于理解初始化比较有用，可以再复习。这个例子说明，对于static final型的编译时常量，所以不需要初始化就可以直接读取，但是只加上static final却不能保证可以直接读取，因为它有可能跟超类有关，这就需要用到上边第3）条，强制初始化，再访问。如果一个static域不为final，则对它访问时，要先进行1）和2）的过程。  
+Class引用也有泛型语法。Class<Integer>,Class<Number>,Class<?>,Class<? extends Number>.为它添加泛型语法主要是为了提供编译期类型检查。  
+Class引用还有转型语法。classname.class.cast(对象)方法，将对象转为classname类对象.  
 ### 14.3 类型转换前先做检查  
+RTTI在Java中的三种形式：  
+1）普通类型转换，比如（Shape），RTTI会确保转换的正确性，否则抛出ClassNotFoundException.  
+2) Class对象。通过查询Class对象可以获得RTTI。  
+3）**instanceof**关键字。它返回布尔值，告诉我们某一对象是否为某个类的实例。  
+这一节没细读，待填坑
+### 14.4 注册工厂
+介绍了工厂方法的设计模式，待填坑
+### 14.5 instanceof与Class等价性
+作者给了一个例子，说明instanceof与Class的区别：instanceof含义是“你是这个类或者它的派生类吗？”，而Class是指你的确切类型。  
+### 14.5 反射：运行时的类信息
 
 
 
