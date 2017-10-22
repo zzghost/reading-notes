@@ -61,4 +61,21 @@ Here's a summary:
     nextId++;
   }
   ```
-  + Initialization Blocks: There are three ways to initialize a data field:  1.set a value in a constructor. 2.assign a value in the declaration. 3.Initialization block.(Not so common).  
+  + Initialization Blocks: There are three ways to initialize a data field:  1.set a value in a constructor. 2.assign a value in the declaration. 3.Initialization block.(Not so common).   
+  **Initialize a static field:** supply an initial value or use static initialization block.Example: `private static int nextId =1` or `static{ nextId = ...}`  
+  **Here's what happens in detail when a constructor is called:**  
+  Step1: All data fields initialized to default values.  
+  Step2: All fields initializers and initialization blocks are executed, in the order in which they occur in the class declaration.But the static initialization blocks always runs before object initialization blocks.  
+  Step3: If the first line of the constructor calls a second constructor, then the body of the second constructor is executed.  
+  Step4: The body of the constructor is executed.
+  + Object Destruction and the *finalize* Method: Java does automatic garbage collection and manual memory reclamation is not needed, so Java does not support destructors. However, some objects may not only use memory, but also other resources, like a file or a handle to another object that uses system resources.In this case, it is imporant that the resources be reclaimed and recycled when they are no longer needed. You can use `finalize` method. This method will be called before garbage collector sweeps away the object. **In practice, do not rely on the finalize method for recycling any resources that are in shor supply, because you simply can know when this method will be called. If a resource needs to be closed as soon as you have finished using it, you needed to manage it manually. Supply a close method that does the nessary cleanup and call it when you are done with the object.**
+7. Packages.  
+Access modifier: *public* and *private*. *public* means it can be used by any class. *private* means it can only be used by the class that defines them. If there's no public and private, the feature can be accessed by all methods in the *package*.  
+8. Class Design Hints
+  + Always keep data private.
+  + Always initialize data.
+  + Don't use too many basic types in a class.
+  + Not all fields need indiviual field accessors and mutators.
+  + Break up classes that have too many responsibilities.
+  + Make the names of your classes and methods reflect their responsibilities.
+  + Prefer immutable classes.
