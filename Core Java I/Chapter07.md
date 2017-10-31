@@ -2,7 +2,7 @@
 Java provides three mechanisms to deal with system failure:
   + Throwing an Exception  
   + Logging
-  + Using Assertions
+  + Using Assertions  
 Exception Hierarchy:
 Throwable(Error, Exception(IOException, Runtime Exception))
 Doing java Programming is focusing on the Exception Hierarchy.
