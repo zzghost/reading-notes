@@ -26,15 +26,15 @@ IdentityHashMap|A map with keys that are compared by ==, not equals.
 ##### java.util.list&lt;E&gt;
 No.|method|Description
 ---|------|-----------
-1. |ListIterator&lt;E&gt; listIterator()|returns a list iterator for visiting the elements of the list.
-2. |ListIterator&lt;E&gt; listIterator(int index)|returns a list iterator for visiting the elements of the list whose first call to next will return the element with the given index.
-3. |void add(int i, E element)|adds an element at *i*th position
-4. |void addAll(int i, Collection&lt;? extends E&gt; elements)|adds all elements from a collection at *i*th position
-5. |E remove(int i)|removes and returns the element at *i*th position
-6. |E get(int i)|gets the element at *i*th position
-7. |E set(int i, E element)|replaces the element at *i*th position with a new element and returns the old element
-8. |int indexOf(Object element)|returns the position of the first occurrence of an element equal to the specified element, or -1 if no matching element is found
-9. |int lastIndexOf(Object element)|returns the position of the last occurrence of an element equal to the specified element, or -1 if no matching element is found.
+1 |ListIterator&lt;E&gt; listIterator()|returns a list iterator for visiting the elements of the list.
+2 |ListIterator&lt;E&gt; listIterator(int index)|returns a list iterator for visiting the elements of the list whose first call to next will return the element with the given index.
+3 |void add(int i, E element)|adds an element at *i*th position
+4 |void addAll(int i, Collection&lt;? extends E&gt; elements)|adds all elements from a collection at *i*th position
+5 |E remove(int i)|removes and returns the element at *i*th position
+6 |E get(int i)|gets the element at *i*th position
+7 |E set(int i, E element)|replaces the element at *i*th position with a new element and returns the old element
+8 |int indexOf(Object element)|returns the position of the first occurrence of an element equal to the specified element, or -1 if no matching element is found
+9 |int lastIndexOf(Object element)|returns the position of the last occurrence of an element equal to the specified element, or -1 if no matching element is found.
 ##### java.util.listIterator&lt;E&gt;
 No.|method|Description
 ---|------|-----------
