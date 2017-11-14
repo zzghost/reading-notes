@@ -51,7 +51,8 @@ No.|method|Description
 11|E getFirst()
 12|E getLast()|returns the element at the begining or the end of the list
 13|E removeFirst()
-14|E removeLast()|removes and returns the element at the begining or the end of the list
+14|E removeLast()|removes and returns the element at the begining or the end of the list  
+
 All linked lists in java are actually *doubly linked*.   
 
 **TreeSet**  
@@ -154,8 +155,56 @@ There are three views:
   + Set&lt;Map.Entry&lt;K, V&gt;&gt; entrySet()
 keySet() is not a HashSet or TreeSet, it is an object of some other class that implements the Set interface.
 
-**WeakHashMap**
+**WeakHashMap**  
 It was designed to solve an interesting problem:  
 If there is a value whose key is no longer used anywhere in the program.  
 Suppose the last reference to a key has gone away.Then there's no longer any way to refer to he value object.But, as no part of the program has the key any more, the key/value pair cannot be removed from the map.  
-The garbage collector cannot remove it. Because the gc traces *live* objects.As long as the map object is live, all buckets in it are live and won't be reclaimed.
+The garbage collector cannot remove it. Because the gc traces *live* objects.As long as the map object is live, all buckets in it are live and won't be reclaimed.Thus, your program should take care to remove unused values from long-lived maps.
+*Machanism:* Use *weak reference* to hold the keys. There is a *Reference Queue*, which keep the weak references. When a new weak reference came, it means that the key was no longer used by anyone and has been collected.The WeakHashMap then removes the associated entry.  
+
+**LinkedHashMap**  
+It can alternatively use *access order*, not insertion order, to iterate throught the map entries.It's used by a "least recently used" discipline for a cache. Everytime you call *get* or *put*, the affected entry is removed from its current position and placed at the *end* of the linked list of entries.  
+construct: `LinkedHashMap<K, V>(initialCapacity, loadFactor, true)`
+
+**Enumeration Sets and Maps**  
+
+## 9.4 Views and Wrappers
+**Definition:**  
+*view*: By using *views*, you can obtain other objects that implement the Collection or Map interfaces. *keySet* method of the map classes is an example.It returns an object of a class that implements the *Set* interface and whose methods manipulate the original map.   
+*Arrays.asList()*: returns a *List* wrapper.
+*subList(int start, int end)* : form a subrange views.
+
+## Algorithms
+### 9.5.1 Sorting and Shulffling
+Use *Collections.sort()* method.  
+```java
+List<string> staff = new LinkedList<>();
+fill collection
+Collections.sort(staff)
+```
+Sort your list in some other way like:
+1. sort a list of employees by salary
+```java
+staff.sort(Comparator.ComparingDouble(Employee::getSalary))
+```
+2. sort a list in descending order
+```java
+staff.sort(Comparator.reverseOrder())
+```
+*Comparator.reverseOrder()* returns a comparator that returns b.compareTo(a).
+3. sort a list by descending salary
+```java
+staff.sort(Comparator.comparingDouble(Employee::getSalary).reversed())
+```
+**how the sort method sorts a linked list in java?:**  
+It simply dumps all elements into an array, sorts the array, and then copies the sorted sequence back into the list. The sort algorithm used in the collections library is a bit slower than QuickSort(Because it is not *stable*)  
+**Not all list can be sorted.**  
+The list must be *modifiable* but not need be *resizable*.  
+*modifiable*: A list is *modifiable* if it supports the *set* method.  
+*resizable*: A list is *resizable* if it supports the *add* and *remove* operations.  
+*Collections.shuffle()*: randomly permutes the order of the elements in a list.  
+If you supply a list that does not implement the *RandomAccess* interface, the *shuffle* method copies the elements into an array, shuffles the array, and copies the shuffled elements back into the list.  
+
+## 9.6 Legacy Collections
+### 9.6.1 The HashTable Class
+The classic *HashTable* class serves the same purpose as the *HashMap* class and has essentially the same interface. *HashTable* methods are synchronized. Use *HashMap* instead.
